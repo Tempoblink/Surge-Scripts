@@ -9,6 +9,7 @@ let SUBTITLE_CELLULAR = 'Cellular, ';
 let SUBTITLE_WIFI = 'Wi-Fi, ';
 let ABOUT_MODE = 'Outbound mode: ';
 let ABOUT_TIME = 'Start Network: ';
+let FORMAT_TIME = "yyyy-MM-dd hh:mm:ss";
 
 //white ssid and black ssid ob rule.
 let WHITENAME = [
@@ -54,7 +55,7 @@ Date.prototype.format = function(fmt) {
     return fmt; 
 }        
 
-let DATE = $script.startTime.format("yyyy-MM-dd hh:mm:ss");
+let DATE = $script.startTime.format(FORMAT_TIME);
 
 function changeOutboundMode(is_cellular, mode) {
     if (is_cellular) {
