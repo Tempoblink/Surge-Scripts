@@ -24,16 +24,15 @@ let CELLULAR = 'Rule';
 let NETWORK = $network.wifi.ssid;
 let TAG = false;
 
-//Time format
 Date.prototype.format = function(fmt) { 
      var o = { 
-        "M+" : this.getMonth()+1,                  
-        "d+" : this.getDate(),                     
+        "M+" : this.getMonth()+1,                 
+        "d+" : this.getDate(),                   
         "h+" : this.getHours(),                   
-        "m+" : this.getMinutes(),                  
-        "s+" : this.getSeconds(),                 
+        "m+" : this.getMinutes(),                
+        "s+" : this.getSeconds(),                
         "q+" : Math.floor((this.getMonth()+3)/3), 
-        "S"  : this.getMilliseconds()             
+        "S"  : this.getMilliseconds()            
     }; 
     if(/(y+)/.test(fmt)) {
             fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
@@ -46,7 +45,7 @@ Date.prototype.format = function(fmt) {
     return fmt; 
 }        
 
-let DATA = $script.startTime.format("yyyy-MM-dd hh:mm:ss");
+let DATE = $script.startTime.format("yyyy-MM-dd hh:mm:ss");
 
 function changeOutboundMode(is_cellular, mode) {
     if (is_cellular) {
@@ -55,12 +54,12 @@ function changeOutboundMode(is_cellular, mode) {
         NETWORK = 'Wi-Fi, '+NETWORK;
     }
     if($surge.setOutboundMode(mode.toLowerCase()))
-        $notification.post("Outbound Changed!", NETWORK+" Outbound Mode: "+mode, "Start Network: "+DATA);
+        $notification.post("Outbound Changed!", "Network: "+NETWORK, "Outbound Mode: "+mode+'\n'+DATE);
     $done();
 }
 
 //wifi select outbound
-if ($network.v4.primaryInterface == "en0" && !NETWORK) {
+if ($network.v4.primaryInterface == "en0" && NETWORK != null) {
     if (BLACKNAME.indexOf(NETWORK) != -1) {
         changeOutboundMode(TAG, BLACK);
     } else if (WHITENAME.indexOf(NETWORK) != -1) {
@@ -75,3 +74,4 @@ if($network.v4.primaryInterface == "pdp_ip0") {
     TAG = true;
     changeOutboundMode(TAG, CELLULAR);
 }
+$done();
