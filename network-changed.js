@@ -24,7 +24,7 @@ let WHITE = 'Rule';
 let OTHERS = 'Rule';
 let CELLULAR = 'Rule';
 
-function changeoutbound(is_cellular, MODE) {
+function changeOutboundMode(is_cellular, MODE) {
     if (is_cellular) {
         NETWORK = 'Cellular, '+$network.v4.primaryAddress;
     }else {
@@ -38,11 +38,11 @@ function changeoutbound(is_cellular, MODE) {
 //wifi select outbound
 if ($network.v4.primaryInterface == "en0" && $network.wifi.bssid != 'null') {
     if (BLACKNAME.indexOf(NETWORK) != -1) {
-        changeoutbound(TAG, BLACK);
+        changeOutboundMode(TAG, BLACK);
     } else if (WHITENAME.indexOf(NETWORK) != -1) {
-        changeoutbound(TAG, WHITE);
+        changeOutboundMode(TAG, WHITE);
     } else {
-        changeoutbound(TAG, OTHERS);
+        changeOutboundMode(TAG, OTHERS);
     }
 }
 
@@ -50,5 +50,5 @@ if ($network.v4.primaryInterface == "en0" && $network.wifi.bssid != 'null') {
 //cellular select outbound
 if($network.v4.primaryInterface == "pdp_ip0") {
     TAG = true;
-    changeoutbound(TAG, CELLULAR);
+    changeOutboundMode(TAG, CELLULAR);
 }
