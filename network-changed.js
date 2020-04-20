@@ -19,12 +19,14 @@ let CELLULAR = 'Rule';
 //WHITENAME select outbound is rule
 //others you can change by OTHERS = 'direct' or 'rule' or 'global-proxy'
 if ($network.v4.primaryInterface == "en0" && $network.wifi.bssid != 'null') {
-    if (BLACKNAME.indexOf(WIFINAME) != -1)
+    if (BLACKNAME.indexOf(WIFINAME) != -1) {
         if($surge.setOutboundMode('direct'))
             $notification.post("Outbound Changed!", "Network: "+WIFINAME, "Outbound Mode, Direct");
-    if (WHITENAME.indexOf(WIFINAME) != -1)
+    }
+    if (WHITENAME.indexOf(WIFINAME) != -1) {
         if($surge.setOutboundMode('rule'))
             $notification.post("Outbound Changed!", "Network: "+WIFINAME, "Outbound Mode, Rule");
+    }
     else {
         if($surge.setOutboundMode(OTHERS.toLowerCase()))
             $notification.post("Outbound Changed!", "Network: "+WIFINAME, "Outbound Mode, "+OTHERS);
