@@ -31,7 +31,7 @@ function changeOutboundMode(is_cellular, mode) {
         NETWORK = 'Wi-Fi, '+NETWORK;
     }
     if($surge.setOutboundMode(mode.toLowerCase()))
-        $notification.post("Outbound Changed!", "Network: "+NETWORK, "Outbound Mode, "+mode);
+        $notification.post("Outbound Changed!", NETWORK+" Outbound Mode: "+mode, $script.startTime);
     $done();
 }
 
