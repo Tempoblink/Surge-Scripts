@@ -1,7 +1,16 @@
-// event network-changed script-path=network-changed.js
+//event network-changed script-path=network-changed.js
 //version: 2.1
 //auther: tempoblink
 
+//The Notification Format.
+//You can change the notification by yourself.
+let TITLE = 'Outbound Changed!';
+let SUBTITLE_CELLULAR = 'Cellular, ';
+let SUBTITLE_WIFI = 'Wi-Fi, ';
+let ABOUT_MODE = 'Outbound mode: ';
+let ABOUT_TIME = 'Start Network: ';
+
+//white ssid and black ssid ob rule.
 let WHITENAME = [
             "home_ssid1",
             "home_ssid2"
@@ -11,8 +20,8 @@ let BLACKNAME = [
             "free_ssid2"
     ];
 
-//The default outbound, you can change it : 'Direct' or 'Rule' or 'Global-proxy'
-//BLACK|WHITE|OTHERS is to control the WIFI outbound mode, CELLULAR is to control the 2G/3G/4G outbound mode 
+//The default outbound, you can change it : 'Direct' or 'Rule' or 'Global-proxy'.
+//BLACK|WHITE|OTHERS is to control the WIFI outbound mode, CELLULAR is to control the 2G/3G/4G outbound mode. 
 //For example:
 //BLACKNAME use BLACK select outbound is direct
 //WHITENAME use WHITE select outbound is rule
@@ -49,12 +58,12 @@ let DATE = $script.startTime.format("yyyy-MM-dd hh:mm:ss");
 
 function changeOutboundMode(is_cellular, mode) {
     if (is_cellular) {
-        NETWORK = 'Cellular, '+$network.v4.primaryAddress;
+        NETWORK = SUBTITLE_CELLULAR + $network.v4.primaryAddress;
     }else {
-        NETWORK = 'Wi-Fi, '+NETWORK;
+        NETWORK = SUBTITLE_WIFI + NETWORK;
     }
     if($surge.setOutboundMode(mode.toLowerCase()))
-        $notification.post("Outbound Changed!", NETWORK, "Outbound Mode: "+mode+'\n'+"Start Network: "+DATE);
+        $notification.post(TITLE, NETWORK, ABOUT_MODE + mode + '\n' + ABOUT_TIME + DATE);
     $done();
 }
 
