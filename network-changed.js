@@ -10,7 +10,7 @@ if ($network.v4.primaryInterface == 'en0' && $network.wifi.bssid != 'null' && $n
       if($network.v4.primaryInterface == 'pdp_ip0')
         $notification.post("Outbound Changed!", "Network: Cellular", "Outbound: Rule");
       if($network.v4.primaryInterface == 'en0')
-        $notification.post("Outbound Changed!", "Network:"+$network.wifi.ssid, "Outbound: Rule");
+        $notification.post("Outbound Changed!", "Network: "+$network.wifi.ssid, "Outbound: Rule");
     }
 }
 $done();
