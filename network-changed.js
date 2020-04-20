@@ -2,7 +2,6 @@
 //version: 2.1
 //auther: tempoblink
 
-let NETWORK = $network.wifi.ssid;
 let WHITENAME = [
             "home_ssid1",
             "home_ssid2"
@@ -11,8 +10,6 @@ let BLACKNAME = [
             "free_ssid1",
             "free_ssid2"
     ];
-
-let TAG = false;
 
 //The default outbound, you can change it : 'Direct' or 'Rule' or 'Global-proxy'
 //BLACK|WHITE|OTHERS is to control the WIFI outbound mode, CELLULAR is to control the 2G/3G/4G outbound mode 
@@ -23,6 +20,9 @@ let BLACK = 'Direct';
 let WHITE = 'Rule';
 let OTHERS = 'Rule';
 let CELLULAR = 'Rule';
+
+let NETWORK = $network.wifi.ssid;
+let TAG = false;
 
 function changeOutboundMode(is_cellular, MODE) {
     if (is_cellular) {
@@ -45,7 +45,6 @@ if ($network.v4.primaryInterface == "en0" && $network.wifi.bssid != 'null') {
         changeOutboundMode(TAG, OTHERS);
     }
 }
-
 
 //cellular select outbound
 if($network.v4.primaryInterface == "pdp_ip0") {
