@@ -32,7 +32,7 @@ function changeoutbound(is_cellular, MODE) {
     }
     if($surge.setOutboundMode(MODE.toLowerCase()))
         $notification.post("Outbound Changed!", "Network: "+NETWORK, "Outbound Mode, "+MODE);
-        $done();
+    $done();
 }
 
 //wifi select outbound
