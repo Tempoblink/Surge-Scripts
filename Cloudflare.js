@@ -7,7 +7,7 @@ var data = [
 				'104.16.160.1',
 				'162.159.211.3'
 			];
-if ($domain.includes('xxxxxxxxx')) {
+if ($domain.includes('example.com')) {
 	$done({addresses: data, ttl: 600});
 }
 else {
