@@ -1,5 +1,5 @@
 // event network-changed script-path=network-changed.js
-//version: 2.0
+//version: 2.1
 //auther: tempoblink
 
 let NETWORK = $network.wifi.ssid;
@@ -19,12 +19,13 @@ let WHITE = 'Rule';
 let OTHERS = 'Rule';
 let CELLULAR = 'Rule';
 
-function changeoutbound(TAG, MODE) {
-    if (TAG) {
+function changeoutbound(is_cellular, MODE) {
+    if (is_cellular) {
         NETWORK = 'Cellular, '+IPADDRESS;
     }
     if($surge.setOutboundMode(MODE.toLowerCase()))
         $notification.post("Outbound Changed!", "Network: "+NETWORK, "Outbound Mode, "+MODE);
+        $done();
 }
 
 //wifi select outbound
@@ -32,18 +33,18 @@ function changeoutbound(TAG, MODE) {
 //WHITENAME select outbound is rule
 //others you can change by OTHERS = 'direct' or 'rule' or 'global-proxy'
 if ($network.v4.primaryInterface == "en0" && $network.wifi.bssid != 'null') {
-    if (BLACKNAME.indexOf(NETWORK) != -1) 
+    if (BLACKNAME.indexOf(NETWORK) != -1) {
         changeoutbound(TAG, BLACK);
-    else if (WHITENAME.indexOf(NETWORK) != -1)
+    } else if (WHITENAME.indexOf(NETWORK) != -1) {
         changeoutbound(TAG, WHITE);
-    else 
+    } else {
         changeoutbound(TAG, OTHERS);
+    }
 }
 
 
 //cellular select outbound
-if($network.v4.primaryInterface == "pdp_ip0")
+if($network.v4.primaryInterface == "pdp_ip0") {
     TAG = true;
     changeoutbound(TAG, CELLULAR);
-
-$done();
+}
