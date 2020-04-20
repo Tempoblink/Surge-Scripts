@@ -36,7 +36,7 @@ function changeOutboundMode(is_cellular, mode) {
 }
 
 //wifi select outbound
-if ($network.v4.primaryInterface == "en0" && NETWORK != "<null>") {
+if ($network.v4.primaryInterface == "en0" && !NETWORK) {
     if (BLACKNAME.indexOf(NETWORK) != -1) {
         changeOutboundMode(TAG, BLACK);
     } else if (WHITENAME.indexOf(NETWORK) != -1) {
