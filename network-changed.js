@@ -24,14 +24,14 @@ let CELLULAR = 'Rule';
 let NETWORK = $network.wifi.ssid;
 let TAG = false;
 
-function changeOutboundMode(is_cellular, MODE) {
+function changeOutboundMode(is_cellular, mode) {
     if (is_cellular) {
         NETWORK = 'Cellular, '+$network.v4.primaryAddress;
     }else {
         NETWORK = 'Wi-Fi, '+NETWORK;
     }
-    if($surge.setOutboundMode(MODE.toLowerCase()))
-        $notification.post("Outbound Changed!", "Network: "+NETWORK, "Outbound Mode, "+MODE);
+    if($surge.setOutboundMode(mode.toLowerCase()))
+        $notification.post("Outbound Changed!", "Network: "+NETWORK, "Outbound Mode, "+mode);
     $done();
 }
 
