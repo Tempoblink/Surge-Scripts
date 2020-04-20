@@ -11,8 +11,8 @@ let BLACKNAME = [
             "free_ssid2"
     ];
 
-let OTHERS = 'rule';
-let CELLULAR = 'rule';
+let OTHERS = 'Rule';
+let CELLULAR = 'Rule';
 
 //wifi select outbound
 //BLACKNAME select outbound is direct
@@ -26,16 +26,16 @@ if ($network.v4.primaryInterface == "en0" && $network.wifi.bssid != 'null') {
         if($surge.setOutboundMode('rule'))
             $notification.post("Outbound Changed!", "Network: "+WIFINAME, "Outbound Mode, Rule");
     else {
-        if($surge.setOutboundMode(OTHERS))
-            $notification.post("Outbound Changed!", "Network: "+WIFINAME, "Outbound Mode, Rule");
+        if($surge.setOutboundMode(OTHERS.toLowerCase()))
+            $notification.post("Outbound Changed!", "Network: "+WIFINAME, "Outbound Mode, "+OTHERS);
     }
 }
 
 
 //cellular select outbound
 if($network.v4.primaryInterface == "pdp_ip0") {
-    if($surge.setOutboundMode(CELLULAR))
-        $notification.post("Outbound Changed!", "Network: Cellular, "+IPADDRESS, "Outbound Mode, Rule");
+    if($surge.setOutboundMode(CELLULAR.toLowerCase()))
+        $notification.post("Outbound Changed!", "Network: Cellular, "+IPADDRESS, "Outbound Mode, "+CELLULAR);
 }
 
 $done();
