@@ -3,7 +3,6 @@
 //auther: tempoblink
 
 let NETWORK = $network.wifi.ssid;
-let IPADDRESS = $network.v4.primaryAddress;
 let WHITENAME = [
             "home_ssid1",
             "home_ssid2"
@@ -14,6 +13,12 @@ let BLACKNAME = [
     ];
 
 let TAG = false;
+
+//The default outbound, you can change it : 'Direct' or 'Rule' or 'Global-proxy'
+//BLACK|WHITE|OTHERS is to control the WIFI outbound mode, CELLULAR is to control the 2G/3G/4G outbound mode 
+//For example:
+//BLACKNAME use BLACK select outbound is direct
+//WHITENAME use WHITE select outbound is rule
 let BLACK = 'Direct';
 let WHITE = 'Rule';
 let OTHERS = 'Rule';
@@ -21,7 +26,9 @@ let CELLULAR = 'Rule';
 
 function changeoutbound(is_cellular, MODE) {
     if (is_cellular) {
-        NETWORK = 'Cellular, '+IPADDRESS;
+        NETWORK = 'Cellular, '+$network.v4.primaryAddress;
+    }else {
+        NETWORK = 'Wi-Fi, '+NETWORK;
     }
     if($surge.setOutboundMode(MODE.toLowerCase()))
         $notification.post("Outbound Changed!", "Network: "+NETWORK, "Outbound Mode, "+MODE);
@@ -29,9 +36,6 @@ function changeoutbound(is_cellular, MODE) {
 }
 
 //wifi select outbound
-//BLACKNAME select outbound is direct
-//WHITENAME select outbound is rule
-//others you can change by OTHERS = 'direct' or 'rule' or 'global-proxy'
 if ($network.v4.primaryInterface == "en0" && $network.wifi.bssid != 'null') {
     if (BLACKNAME.indexOf(NETWORK) != -1) {
         changeoutbound(TAG, BLACK);
