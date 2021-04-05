@@ -24,10 +24,10 @@ let BLOCKLIST = [
     ];
 
 //The default outbound: 'Direct' or 'Rule' or 'Global-proxy'.
-let BlockList = 'Direct';
-let AllowList = 'Rule';
-let Others = 'Rule';
-let Cellular = 'Rule';
+let BlockList = "Direct";
+let AllowList = "Rule";
+let Others = "Rule";
+let Cellular = "Rule";
 
 function changeOutboundMode(mode) {
     ABOUT_IP += $network.v4.primaryAddress;
@@ -39,9 +39,9 @@ function changeOutboundMode(mode) {
 let NETWORK = "";
 if ($network.v4.primaryInterface == "en0") {
     NETWORK += SUBTITLE_WIFI + $network.wifi.ssid;
-    if (BLOCKLIST.indexOf(NETWORK) != -1) {
+    if (BLOCKLIST.indexOf($network.wifi.ssid) != -1) {
         changeOutboundMode(BlockList);
-    } else if (ALLOWLIST.indexOf(NETWORK) != -1) {
+    } else if (ALLOWLIST.indexOf($network.wifi.ssid) != -1) {
         changeOutboundMode(AllowList);
     } else {
         changeOutboundMode(Others);
